@@ -1,15 +1,17 @@
-import { FunctionComponent, ComponentPropsWithoutRef } from 'react';
-
+import {ComponentPropsWithoutRef, FC, ReactNode} from 'react';
 import s from './button.module.scss';
 
 interface ButtonProps extends ComponentPropsWithoutRef<'button'> {
-    btnText: string;
-};
+    btnText?: string;
+    children?: ReactNode;
+}
 
-export const Button: FunctionComponent<ButtonProps> = ( {btnText, ...props} ) => {
+export const Button: FC<ButtonProps> = (props: ButtonProps) => {
+    const {btnText, children, ...rest} = props;
+
     return (
-        <button {...props} className={s.button}>
-            {btnText}
+        <button {...rest} className={`${s.button} ${rest.className || ''}`}>
+            {children || btnText}
         </button>
     );
 };

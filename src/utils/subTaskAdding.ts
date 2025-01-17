@@ -13,3 +13,4 @@ export const subTaskAdding:SubTaskAddingProps = (id, array, task) => {
         return arr;
     }, []);
 };
+

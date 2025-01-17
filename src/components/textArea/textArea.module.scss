@@ -1,0 +1,27 @@
+.input {
+  all: unset;
+  padding: 12px 16px;
+  font-family: inherit;
+  font-size: 16px;
+  color: #333;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+  &:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    outline: none;
+  }
+
+  &::placeholder {
+    color: #999;
+  }
+}
+
+.textarea {
+  resize: none;
+  min-height: 120px;
+}

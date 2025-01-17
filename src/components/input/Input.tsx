@@ -1,8 +1,8 @@
-import { FunctionComponent, ComponentPropsWithoutRef } from 'react';
+import {ComponentPropsWithoutRef, FC} from 'react';
 
 import styles from './input.module.scss';
 
-export const Input: FunctionComponent< ComponentPropsWithoutRef<'input'> > = ( {...props} ) => {
+export const Input: FC<ComponentPropsWithoutRef<'input'>> = ({...props}) => {
     return (
         <input
             {...props}

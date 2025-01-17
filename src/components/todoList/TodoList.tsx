@@ -1,13 +1,12 @@
-import { FunctionComponent } from 'react';
-import { observer } from 'mobx-react-lite';
+import {FC} from 'react';
+import {observer} from 'mobx-react-lite';
 import todos from "../../store/todos.ts";
-import { TodoItem } from "../../components/todoItem/TodoItem.tsx";
+import {TodoItem} from "../todoItem/TodoItem.tsx";
 
-export const TodoList:FunctionComponent = observer(() => {
+export const TodoList: FC = observer(() => {
     return (
         <div>
-            {
-                todos.todoArray.map(todoItem =>
+            {todos.todoArray.map(todoItem =>
                     <TodoItem
                         key={todoItem.id}
                         todoItem={todoItem}

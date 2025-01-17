@@ -28,3 +28,4 @@ export const subTasksCompleteToggler: CompleteTogglerProps = (array, state) => {
         return arr;
     }, []);
 };
+

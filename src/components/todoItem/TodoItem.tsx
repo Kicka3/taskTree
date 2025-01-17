@@ -1,23 +1,20 @@
-import { FunctionComponent, useState } from 'react';
-import { observer } from 'mobx-react-lite';
-
-// import addIcon from '../assets/icons/add.svg';
-// import deleteIcon from '../assets/icons/delete.svg';
-// import chevronIcon from '../assets/icons/chevron.svg';
-
-import s from './todoItem.module.scss';
+import {FC, useState} from 'react';
+import {observer} from 'mobx-react-lite';
+import addIcon from '../../assets/icons/add.svg';
+import deleteIcon from '../../assets/icons/delete.svg';
+import chevronIcon from '../../assets/icons/chevron.svg';
+import styles from '../../style/todos.module.scss';
 import {TodoType} from "../../types/todoType.ts";
-import {ModalWindow} from "../../components/modalWindow/ModalWindow.tsx";
-import {Button} from "../../components/button/Button.tsx";
+import {ModalWindow} from "../modalWindow/ModalWindow.tsx";
+import {Button} from "../button/Button.tsx";
 import todos from "../../store/todos.ts";
-import {Checkbox} from "../../components/checkbox/Checkbox.tsx";
-
+import {Checkbox} from "../checkbox/Checkbox.tsx";
 
 type TodoItemProps = {
     todoItem: TodoType;
 };
 
-export const TodoItem:FunctionComponent<TodoItemProps> = observer(( {todoItem} ) => {
+export const TodoItem: FC<TodoItemProps> = observer(({todoItem}) => {
     const {id, title, isCompleted, subTasks} = todoItem;
     const [isModalShown, setIsModalShown] = useState(false);
     const [isSubTasksShown, setIsSubTasksShown] = useState(false);
@@ -32,8 +29,7 @@ export const TodoItem:FunctionComponent<TodoItemProps> = observer(( {todoItem} )
 
     return (
         <>
-            {
-                isModalShown &&
+            {isModalShown &&
                <ModalWindow modalToggler={modalWindowToggler}>
                   <Button
                      btnText='add todo'
@@ -41,41 +37,40 @@ export const TodoItem:FunctionComponent<TodoItemProps> = observer(( {todoItem} )
                   />
                </ModalWindow>
             }
-            <div className={s.todoItem}>
-                <img
-                    src={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRxZwspa_1ibFKPxO4JJ1f7VGNOzSv2cIZMdw&s"}
-                    alt=''
-                    className={isSubTasksShown ? `${s.icons} ${s.rotated}` : s.icons}
-                    onClick={subTasksToggler}
-                />
-                <h3
-                    className={`midHeader ${s.title}`}
-                    onClick={() => todos.chooseTask(id)}
-                >
-                    {title}
-                </h3>
-                <img
-                    src={"https://png.pngtree.com/png-vector/20190419/ourmid/pngtree-vector-add-icon-png-image_956621.jpg"}
-                    alt='add subtask'
-                    className={s.icons}
-                    onClick={modalWindowToggler}
-                />
+            <div className={styles.todoItem}>
                 <Checkbox
                     id={id}
                     checked={isCompleted}
                     onChange={() => todos.completeToggler(id)}
                 />
                 <img
-                    src={"https://e7.pngegg.com/pngimages/29/45/png-clipart-delete-key-logo-button-text-rectangle-thumbnail.png"}
+                    src={chevronIcon}
+                    alt=''
+                    className={isSubTasksShown ? `${styles.icons} ${styles.rotated}` : styles.icons}
+                    onClick={subTasksToggler}
+                />
+                <h3
+                    className={`midHeader ${styles.title}`}
+                    onClick={() => todos.chooseTask(id)}
+                >
+                    {title}
+                </h3>
+                <img
+                    src={addIcon}
+                    alt='add subtask'
+                    className={styles.icons}
+                    onClick={modalWindowToggler}
+                />
+                <img
+                    src={deleteIcon}
                     alt='delete task'
-                    className={s.icons}
+                    className={styles.icons}
                     onClick={() => todos.removeTask(id)}
                 />
             </div>
-            {
-                subTasks.length > 0 &&
-               <div className={isSubTasksShown ? s.subTasks : s.hide}>
-                   {subTasks.map(subTask => <TodoItem key={subTask.id} todoItem={subTask} />)}
+            {subTasks.length > 0 &&
+               <div className={isSubTasksShown ? styles.subTasks : styles.hide}>
+                   {subTasks.map(subTask => <TodoItem key={subTask.id} todoItem={subTask}/>)}
                </div>
             }
         </>

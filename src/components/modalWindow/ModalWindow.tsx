@@ -1,21 +1,22 @@
-import {FunctionComponent} from 'react';
-
+import React, {FC} from 'react';
+import {observer} from 'mobx-react-lite';
 import styles from './modalWindow.module.scss';
+import todos from '../../store/todos';
 import {Input} from "../input/Input.tsx";
 import {TextArea} from "../textArea/ TextArea.tsx";
 import {Button} from "../button/Button.tsx";
-import todos from "../../store/todos.ts";
 
 
 type ModalProps = {
-    children: JSX.Element | JSX.Element[];
+    children: React.ReactNode;
     modalToggler: () => void;
 }
 
-export const ModalWindow: FunctionComponent<ModalProps> = ({children, modalToggler}) => {
+export const ModalWindow: FC<ModalProps> = observer(({children, modalToggler}) => {
     return (
         <div className={styles.blackout}>
             <div className={`${styles.flexColumn} ${styles.controls}`}>
+                <h1 className={styles.title}>Новая задача</h1>
                 <div className={styles.flexColumn}>
                     <Input
                         value={todos.todoTitle}
@@ -28,13 +29,15 @@ export const ModalWindow: FunctionComponent<ModalProps> = ({children, modalToggl
                         placeholder='Todo text...'
                     />
                 </div>
-                {children}
-                <Button
-                    btnText='close window'
-                    onClick={modalToggler}
-                />
+               <div className={styles.actions}>
+                   {children}
+                   <Button
+                       className={styles.closeBtn}
+                       onClick={modalToggler}
+                       btnText='Close'
+                   />
+               </div>
             </div>
         </div>
     );
-};
-
+});

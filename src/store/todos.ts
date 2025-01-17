@@ -6,15 +6,14 @@ import {TodoType} from "../types/todoType.ts";
 import { makeAutoObservable } from 'mobx';
 import { v4 as uuidv4 } from 'uuid';
 
-
 class Todos {
-    todoArray:TodoType[] = localStorage.todos ? JSON.parse(localStorage.todos) : [];
-    activeTask:TodoType | null = null;
+    todoArray: TodoType[] = localStorage.todos ? JSON.parse(localStorage.todos) : [];
+    activeTask: TodoType | null = null;
     todoTitle = '';
     todoText = '';
 
     constructor() {
-        makeAutoObservable(this)
+        makeAutoObservable(this);
     }
 
     titleHandler = (str: string) => {
@@ -76,8 +75,13 @@ class Todos {
     chooseTask = (id: string) => {
         this.activeTask = recursionSearch(id, this.todoArray);
     }
+
+    closeTask = () => {
+        this.activeTask = null;
+    };
 }
 
 const todos = new Todos();
 
 export default todos;
+

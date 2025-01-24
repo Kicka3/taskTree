@@ -1,3 +1,4 @@
+import {updateParentCompletionStatus} from "../utils/updateParentCompletionStatus.ts";
 import {recursionCompleteToggler} from "../utils/tasksTogglerFunctions.ts";
 import {recursionFilter} from "../utils/recursionFilter.ts";
 import {recursionSearch} from "../utils/recursionSearch.ts";
@@ -68,7 +69,14 @@ class Todos {
     }
 
     completeToggler = (id: string) => {
+
+        //Меняю задачу
         this.todoArray = recursionCompleteToggler(id, this.todoArray);
+
+        //Смотрю на подзадачи
+        this.todoArray = updateParentCompletionStatus(this.todoArray);
+
+        //Сохраняю
         localStorage.setItem('todos', JSON.stringify(this.todoArray));
     }
 

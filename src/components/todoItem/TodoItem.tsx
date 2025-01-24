@@ -27,13 +27,18 @@ export const TodoItem: FC<TodoItemProps> = observer(({todoItem}) => {
         setIsSubTasksShown(prevSubTasks => !prevSubTasks);
     }
 
+    const addSubTask = (id: string) => {
+        todos.addSubtask(id)
+        setIsModalShown(false);
+    }
+
     return (
         <>
             {isModalShown &&
                <ModalWindow modalToggler={modalWindowToggler}>
                   <Button
                      btnText='add todo'
-                     onClick={() => todos.addSubtask(id)}
+                     onClick={() => addSubTask(id)}
                   />
                </ModalWindow>
             }
